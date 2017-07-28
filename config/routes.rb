@@ -1400,6 +1400,7 @@ Rails.application.routes.draw do
         tagging_edit
         tag_edit_form_field_changed
         jdbc_drivers
+        jdr_download
       ) +
                compare_get,
       :post => %w(
