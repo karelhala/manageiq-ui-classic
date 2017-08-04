@@ -2040,13 +2040,34 @@ Rails.application.routes.draw do
         x_post
     },
 
-    :generic_object_definition => {
+    :generic_object => {
       :get => %w(
         show
         show_list
       ),
       :post => %w(
       )
+    },
+
+    :generic_object_definition => {
+      :get => %w(
+        download_data
+        download_summary_pdf
+        show
+        show_list
+      ),
+      :post => %w(
+        create_del
+        exp_button
+        exp_changed
+        exp_token_pressed
+        listnav_search_selected
+        update_del
+        quick_search
+        show_list
+      ) +
+        adv_search_post +
+        save_post
     },
 
     :ansible_credential => {
@@ -2162,6 +2183,8 @@ Rails.application.routes.draw do
         dialog_list
         dialog_res_remove
         dialog_res_reorder
+        enablement_expression
+        visibility_expression
         explorer
         field_value_accept
         field_value_delete
@@ -2183,7 +2206,7 @@ Rails.application.routes.draw do
         x_history
         x_show
       ) +
-               button_post
+               button_post + exp_post
     },
 
     :miq_ae_tools             => {

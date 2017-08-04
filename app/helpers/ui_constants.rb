@@ -6,38 +6,6 @@ module UiConstants
   TIMELINES_FOLDER = File.join(Rails.root, "product/timelines")
   TOOLBARS_FOLDER = File.join(Rails.root, "product/toolbars")
 
-  # RSS Feeds
-  RSS_FEEDS = {
-    "Microsoft Security"         => "http://www.microsoft.com/protect/rss/rssfeed.aspx",
-    "CNN Top Stories"            => "http://rss.cnn.com/rss/cnn_topstories.rss",
-    "Gartner Latest Research"    => "http://www.gartner.com/it/rss/leaders/latest_research_itoperations.jsp#",
-    "Google News"                => "http://news.google.com/?output=rss",
-    "SlashDot"                   => "http://slashdot.org/index.rdf",
-    "VM Etc."                    => "http://feeds.feedburner.com/vmetc?format=xml",
-    "Virtualization Pro"         => "http://itknowledgeexchange.techtarget.com/virtualization-pro/feed/",
-    "Virtualization Information" => "http://virtualizationinformation.com/?feed=rss2",
-    "Vmware Tips & Tricks"       => "http://rss.techtarget.com/840.xml",
-    "DABCC - News & Support"     => "http://feeds.dabcc.com/AllArticles",
-    "VmwareWolf"                 => "http://feeds.feedburner.com/vmwarewolf",
-    "Vmware RSS Feeds"           => "http://vmware.simplefeed.net/rss?f=995b0290-01dc-11dc-3032-0019bbc54f6f"
-  }
-
-  # Screen background color choices
-  BG_COLORS = [
-    "#c00",      # First entry is the default
-    "#ff8a00",
-    "#ffe400",
-    "#6b9130",
-    "#0c7ad7",
-    "#000"
-  ]
-
-  # Navigation Styles
-  NAV_STYLES = [
-    "vertical",     # First entry is the default
-    "wedged"
-  ]
-
   # Theme settings - each subitem will be set in @settings[:css][:<subitem>] based on the selected theme
   THEME_CSS_SETTINGS = {
     "red"           => {
@@ -69,8 +37,6 @@ module UiConstants
       :background_color => "#000"
     }
   }
-
-  PERPAGE_TYPES = %w(grid tile list reports).each_with_object({}) { |value, acc| acc[value] = value.to_sym }.freeze
 
   # Default UI settings
   DEFAULT_SETTINGS = {
@@ -180,11 +146,9 @@ module UiConstants
       :reporttheme   => "MIQ",
       :quad_truncate => "m",
       :theme         => "red",            # Luminescent Blue
-      :bg_color      => BG_COLORS.first,  # Background color
       :taskbartext   => true,             # Show button text on taskbar
       :vmcompare     => "Compressed",     # Start VM compare and drift in compressed mode
       :hostcompare   => "Compressed",     # Start Host compare in compressed mode
-      :nav_style     => NAV_STYLES.first,  # Navigation style
       :timezone      => nil,               # This will be set when the user logs in
       :display_vms   => false # don't display vms by default
     },

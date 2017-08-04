@@ -877,6 +877,7 @@ module ApplicationHelper
        ems_storage
        flavor
        floating_ip
+       generic_object_definition
        host
        host_aggregate
        load_balancer
@@ -1303,6 +1304,7 @@ module ApplicationHelper
                         event
                         flavor
                         floating_ip
+                        generic_object_definition
                         host
                         host_aggregate
                         load_balancer
@@ -1406,6 +1408,7 @@ module ApplicationHelper
           ems_storage
           flavor
           floating_ip
+          generic_object_definition
           host
           load_balancer
           middleware_datasource
@@ -1476,6 +1479,7 @@ module ApplicationHelper
              ems_storage
              flavor
              floating_ip
+             generic_object_definition
              host
              host_aggregate
              load_balancer
@@ -1582,24 +1586,6 @@ module ApplicationHelper
       content_tag(:i, nil, :class => icon)
     else
       image_tag(ActionController::Base.helpers.image_path(image), :alt => nil)
-    end
-  end
-
-  def listicon_glyphicon_tag(item)
-    item = db.constantize.find(row["id"])
-    glyphicon, glyphicon2 = listicon_glyphicon(item)
-
-    content_tag(:i, nil, :class => glyphicon) do
-      content_tag(:i, nil, :class => glyphicon2) if glyphicon2
-    end
-  end
-
-  def listicon_tag(db, row)
-    item = db.constantize.find(row["id"])
-    if %w(MiqReportResult MiqSchedule MiqUserRole MiqWidget).include?(db)
-      listicon_glyphicon_tag(item)
-    else
-      fileicon_tag(item)
     end
   end
 
