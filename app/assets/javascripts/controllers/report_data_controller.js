@@ -358,7 +358,7 @@
 
   ReportDataController.prototype.movePagination = function() {
     this.$timeout(function() {
-      var sortItems = this.$document.getElementsByClassName('miq-sort-items');
+      var sortItems = this.$document.getElementsByTagName('miq-sort-items');
       if (sortItems) {
         angular.element(sortItems).addClass(this.settings.dropDownClass[0]);
       }
