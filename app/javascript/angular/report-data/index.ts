@@ -11,6 +11,7 @@ miqHttpInject(
  * Enable helper functions to be accessed in jasmine tests.
  */
 if (window['jasmine']) {
+  app.constant('MOCKED_FUNCTIONS', Object.keys(HelperFunctions));
   Object.keys(HelperFunctions)
     .forEach(
       helperFuncKey => app.constant(helperFuncKey, HelperFunctions[helperFuncKey])

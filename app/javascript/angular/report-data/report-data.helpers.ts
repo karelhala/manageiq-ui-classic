@@ -3,15 +3,17 @@ import { USE_TREE_ID,
          TREE_TABS_WITHOUT_PARENT,
          MAIN_CONTETN_ID,
          EXPAND_TREES,
-         NUMBER_OF_COLS } from './report-data.constants';
+         NUMBER_OF_COLS,
+         TILE_VIEW_TAG,
+         TABLE_VIEW_TAG } from './report-data.constants';
 
 /**
  * 
  * @param initObject 
  */
-export function isAllowedParent(initObject) {
+export function isAllowedParent(activeTree) {
   return TREES_WITHOUT_PARENT.indexOf(ManageIQ.controller) === -1 &&
-    TREE_TABS_WITHOUT_PARENT.indexOf(initObject.activeTree) === -1;
+    TREE_TABS_WITHOUT_PARENT.indexOf(activeTree) === -1;
 }
 
 /**
@@ -41,10 +43,10 @@ export function calculateStart(settings) {
 /**
  * 
  * @param cols 
- * @param sort_col 
+ * @param sortCol 
  */
-export function calculateSortId(cols, sort_col) {
-  return _.findIndex(cols, {col_idx: parseInt(sort_col, 10)});
+export function calculateSortId(cols, sortCol) {
+  return _.findIndex(cols, {col_idx: parseInt(sortCol, 10)});
 }
 
 /**
@@ -85,26 +87,26 @@ export function calculateUrl(url: string): string {
  * 
  */
 export function tileViewSelector() {
-  return document.querySelector('miq-tile-view');
+  return document.querySelector(TILE_VIEW_TAG);
 }
 
 /**
  * 
  */
 export function tableViewSelector() {
-  return document.querySelector('miq-data-table');
+  return document.querySelector(TABLE_VIEW_TAG);
 }
 
 /**
- * 
+ * TODO: test
  * @param initObject 
  * @param item 
  */
-export function constructSuffixForTreeUrl(initObject, item) {
-  let itemId = _.isString(initObject.showUrl) && initObject.showUrl.indexOf('xx-') !== -1 ? '_-' + item.id : '-' + item.id;
+export function constructSuffixForTreeUrl(showUrl, activeTree, item) {
+  let itemId = _.isString(showUrl) && showUrl.indexOf('xx-') !== -1 ? '_-' + item.id : '-' + item.id;
   if (item.parent_id && item.parent_id[item.parent_id.length - 1] !== '-') {
     itemId = item.parent_id + '_' + item.tree_id;
-  } else if (isAllowedParent(initObject)) {
+  } else if (isAllowedParent(activeTree)) {
     itemId = (USE_TREE_ID.indexOf(ManageIQ.controller) === -1) ? '_' : '';
     itemId = itemId + item.tree_id;
   }
@@ -222,7 +224,7 @@ export function movePagination(dropdownClass) {
     let pagingDiv = document.querySelector('#paging_div');
     // If more than one angular pagination is present remove some left overs.
     if (pagination.length !== 1) {
-      $(pagination).each(function(index, item) {
+      Array.prototype.forEach.call(pagination, function(index, item) {
         // keep the first one
         index !== 0 && item.remove();
       });

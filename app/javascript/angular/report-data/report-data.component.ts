@@ -80,7 +80,7 @@ class ReportDataController implements ReportDataInterface {
       } else if (this.config.isExplorer && isCurrentControllerOrPolicies(splitUrl)) {
         let itemId = item.id;
         if (_.isString(this.config.showUrl) && this.config.showUrl.indexOf('?id=') !== -1) {
-          itemId = constructSuffixForTreeUrl(this.config, item);
+          itemId = constructSuffixForTreeUrl(this.config.showUrl, this.config.activeTree, item);
           activateNodeSilently(itemId);
         }
         if (itemId.indexOf('unassigned') !== -1) {

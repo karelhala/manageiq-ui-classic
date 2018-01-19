@@ -8,6 +8,8 @@ export const USE_TREE_ID = ['automation_manager'];
 export const DEFAULT_VIEW = 'grid';
 export const TOOLBAR_CLICK_FINISH = 'TOOLBAR_CLICK_FINISH';
 export const NUMBER_OF_COLS = 12;
+export const TILE_VIEW_TAG = 'miq-tile-view';
+export const TABLE_VIEW_TAG = 'miq-data-table';
 export const BASIC_SETTINGS = {
   current: 1,
   perpage: 20,

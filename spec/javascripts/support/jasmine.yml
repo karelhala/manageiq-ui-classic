@@ -20,6 +20,7 @@ src_files:
 - packs/vendor.js
 - packs/manageiq-ui-classic/application-common.js
 - packs/manageiq-ui-classic/miq-redux-common.js
+- packs/manageiq-ui-classic/angular-common.js
 
 # stylesheets
 #
@@ -58,7 +59,7 @@ helpers:
 #   - **/*[sS]pec.js
 #
 spec_files:
-- '**/*[sS]pec.js'
+- '**/components/report_data*_spec.js'
 
 # src_dir
 #
@@ -133,4 +134,4 @@ boot_files:
 #
 # Tell PhantomJS runner to enable console.log output from your specs.
 
-# show_console_log: true
+show_console_log: true
