@@ -1,0 +1,23 @@
+%miq-tile-view{"ng-if"            => "dataCtrl.gtlType === 'grid' || dataCtrl.gtlType === 'tile'",
+               "ng-class"         => "{'no-action': dataCtrl.initObject.showUrl === ''}",
+               "settings"         => "dataCtrl.settings",
+               "per-page"         => "dataCtrl.perPage",
+               "rows"             => "dataCtrl.gtlData.rows",
+               "on-row-click"     => "dataCtrl.onItemClicked(item, event)",
+               "on-sort"          => "dataCtrl.setSort(headerId, isAscending); dataCtrl.initController()",
+               "on-item-selected" => "dataCtrl.onItemSelect(item, isSelected)",
+               "load-more-items"  => "dataCtrl.setPaging(start, perPage); dataCtrl.initController()",
+               "columns"          => "dataCtrl.gtlData.cols",
+               "type"             => "dataCtrl.gtlType === 'grid' ? 'small' : 'big'"}
+%miq-data-table{"ng-if"            => "dataCtrl.gtlType === 'list'",
+                "ng-class"         => "{'no-action': dataCtrl.initObject.showUrl === false}",
+                "settings"         => "dataCtrl.settings",
+                "per-page"         => "dataCtrl.perPage",
+                "rows"             => "dataCtrl.gtlData.rows",
+                "on-row-click"     => "dataCtrl.onItemClicked(item, event)",
+                "on-sort"          => "dataCtrl.setSort(headerId, isAscending); dataCtrl.initController()",
+                "load-more-items"  => "dataCtrl.setPaging(start, perPage); dataCtrl.initController()",
+                "on-item-selected" => "dataCtrl.onItemSelect(item, isSelected)",
+                "columns"          => "dataCtrl.gtlData.cols"}
+               
+

@@ -44,6 +44,27 @@ module GtlHelper
     )
   end
 
+  def miq_report_data(options)
+    parent_id_escaped = (h(j_str(options[:parent_id])) unless options[:display].nil?)
+
+    content_tag(
+      'report-data', '',
+      'config' => "{
+        additionalOptions: #{options[:report_data_additional_options].to_json},
+        modelName: '#{h(j_str(options[:model_name]))}',
+        activeTree: '#{options[:active_tree]}',
+        gtlType: '#{h(j_str(options[:gtl_type_string]))}',
+        parentId: '#{parent_id_escaped}',
+        sortColIdx: '#{options[:sort_col]}',
+        sortDir: '#{options[:sort_dir]}',
+        isExplorer: '#{options[:explorer]}' === 'true' ? true : false,
+        records: #{!options[:selected_records].nil? ? h(j_str(options[:selected_records].to_json)) : "\'\'"},
+        hideSelect: #{options[:selected_records].kind_of?(Array)},
+        showUrl: '#{gtl_show_url(options)}'
+      }"
+    )
+  end
+
   # This method collects all the data comming from side channels
   # so that `render_gtl` can be a pure function.
   #
@@ -80,17 +101,16 @@ module GtlHelper
   #
   def render_gtl(options)
     capture do
-      concat(render_gtl_markup(options[:no_flash_div]))
+      concat(render_gtl_markup(options[:no_flash_div], options))
       concat(render_gtl_javascripts(options))
     end
   end
 
-  def render_gtl_markup(no_flash_div)
-    content_tag('div', :id => 'miq-gtl-view', "ng-controller" => "reportDataController as dataCtrl") do
+  def render_gtl_markup(no_flash_div, options)
+    content_tag('div', :id => 'miq-gtl-view') do
       capture do
         concat(render(:partial => 'layouts/flash_msg')) unless no_flash_div
-        concat(miq_tile_view)
-        concat(miq_data_table)
+        concat(miq_report_data(options))
         concat(
           content_tag(
             'div',
