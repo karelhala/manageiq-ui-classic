@@ -1,5 +1,6 @@
-import { subscribeToRx, DELETE_EVENT } from '../helpers/rxConnector';
+import { subscribeToRx, DELETE_EVENT, REFRESH_EVENT } from '../helpers/rxConnector';
 import { onDelete } from '../toolbar-actions/delete';
+import { onRefresh } from '../toolbar-actions/refresh';
 
 function transformResource(resource) {
   return ({ id: resource });
@@ -23,6 +24,7 @@ export function getGridChecks() {
  */
 const eventMapper = {
   [DELETE_EVENT]: data => onDelete(data, getGridChecks()),
+  [REFRESH_EVENT]: data => onRefresh(data, getGridChecks()),
 };
 
 subscribeToRx(eventMapper);

@@ -13,3 +13,4 @@ export function subscribeToRx(eventMapper) {
  * Event types are stored here.
  */
 export const DELETE_EVENT = 'delete'; // Reacts to event - {type: 'delete', payload: {...}}
+export const REFRESH_EVENT = 'refresh'; // Reacts to event - {type: 'refresh', payload: {...}}
