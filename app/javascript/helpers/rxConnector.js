@@ -6,7 +6,7 @@ function callMapperFunction(eventMapper, event) {
 }
 
 export function subscribeToRx(eventMapper) {
-  listenToRx(event => event.type && callMapperFunction(eventMapper, event));
+  listenToRx(event => event.type && !event.controller && callMapperFunction(eventMapper, event));
 }
 
 /**
