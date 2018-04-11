@@ -1,5 +1,5 @@
 import 'angular-mocks';
-import * as commonActions from '../packs/toolbar-actions';
+import * as commonActions from '../packs/toolbar-actions-common';
 import * as deleteActions from '../toolbar-actions/delete';
 
 describe('Toolbar actions', () => {

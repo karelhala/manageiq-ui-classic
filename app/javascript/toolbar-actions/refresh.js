@@ -8,19 +8,21 @@ export function customActionRefresh(payload, resources) {
 }
 
 export function APIRefresh(entity, resources) {
-  API.post(`/${API_ENDPOINT}/${entity}`, {
+  return API.post(`/${API_ENDPOINT}/${entity}`, {
     action: REFRESH_EVENT,
     resources,
   })
   .then((data) => {
-    if (data.results.length > 1) {
+    if (data.results && data.results.length > 1) {
       add_flash(sprintf(__('Requested refresh of selected items.')), 'success');
     } else {
       add_flash(sprintf(__('Requested refresh of selected item.')), 'success');
     }
+    return data;
   })
   .catch((data) => {
-    add_flash(sprintf(__('Requested refresh failed.')), 'error');
+    // add_flash(sprintf(__('Requested refresh failed.')), 'error');
+    return data;
   });
 }
 
