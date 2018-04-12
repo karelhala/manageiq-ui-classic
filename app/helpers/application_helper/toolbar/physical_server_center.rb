@@ -15,7 +15,7 @@ class ApplicationHelper::Toolbar::PhysicalServerCenter < ApplicationHelper::Tool
             N_('Refresh Relationships and Power States'),
             :image   => "refresh",
             :data    => {'function'      => 'sendDataWithRx',
-                         'function-data' => '{"type": "refresh", "controller": "physicalServerToolbarController"}'},
+                         'function-data' => '{"type": "refresh", "payload": {"entity": "physical_servers"}}'},
             :confirm => N_("Refresh relationships and power states for all items related to the selected Physical Servers?"),
             :options => {:feature => :refresh}
           ),
