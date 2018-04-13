@@ -1,6 +1,8 @@
-import { subscribeToRx, DELETE_EVENT, REFRESH_EVENT } from '../miq-redux/action-types';
+
+import { DELETE_EVENT, REFRESH_EVENT } from '../miq-redux/action-types'
 import { onDelete } from '../toolbar-actions/delete';
 import { onRefresh } from '../toolbar-actions/refresh';
+import { applyReducerHash, addReducer } from '../miq-redux/reducer';
 
 function transformResource(resource) {
   return ({ id: resource });
@@ -22,7 +24,7 @@ export function getGridChecks() {
 }
 
 /**
- * Function event mapper for observed RX subject.
+ * Function event mapper for observed Redux.
  * For action:
  *     {type: 'example', payload: {...}}
  * You need to add:
@@ -35,4 +37,4 @@ const eventMapper = {
   [REFRESH_EVENT]: (state, action) => gridChecksForCallback(state, action, onRefresh),
 };
 
-subscribeToRx(eventMapper);
+addReducer((state, action) => applyReducerHash(eventMapper, state, action));

@@ -1,4 +1,4 @@
-import { DELETE_EVENT } from '../helpers/rxConnector';
+import { DELETE_EVENT } from '../miq-redux/action-types';
 
 const API = angular.injector(['ng', 'miq.api']).get('API');
 const API_ENDPOINT = 'api';
@@ -10,9 +10,11 @@ export function showMessage(messages, success) {
     Object.keys(messages).forEach((msgStatus) => {
       const statusKey = msgStatus === 'true';
       if (statusKey && messages[statusKey] > 0) {
-        add_flash(sprintf(__('Deleting of %s items queued.'), messages[statusKey]), 'success');
+        const msg = sprintf(__('Deleting of %s items queued.'), messages[statusKey]);
+        add_flash(msg, 'success');
       } else if (messages[statusKey] > 0) {
-        add_flash(sprintf(__('Failed to delete %s items.'), messages[statusKey]), 'error');
+        const msg = sprintf(__('Failed to delete %s items.'), messages[statusKey]);
+        add_flash(msg, 'error');
       }
     });
   }

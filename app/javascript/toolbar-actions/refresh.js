@@ -1,4 +1,4 @@
-import { REFRESH_EVENT } from '../helpers/rxConnector';
+import { REFRESH_EVENT } from '../miq-redux/action-types';
 
 const API = angular.injector(['ng', 'miq.api']).get('API');
 const API_ENDPOINT = 'api';
@@ -13,10 +13,12 @@ export function APIRefresh(entity, resources) {
     resources,
   })
   .then((data) => {
-    if (data.results && data.results.length > 1) {
-      add_flash(sprintf(__('Requested refresh of selected items.')), 'success');
+    if (data.results && data.results.length > 0 && data.results[0].success) {
+      const msg = sprintf(__('Requested refresh of selected items.'));
+      add_flash(msg, 'success');
     } else {
-      add_flash(sprintf(__('Requested refresh of selected item.')), 'success');
+      const msg = sprintf(__('Requested refresh of selected item.'));
+      add_flash(msg, 'error');
     }
     return data;
   })
@@ -27,10 +29,10 @@ export function APIRefresh(entity, resources) {
 }
 
 export function onRefresh(state, action) {
-  if (payload.customAction) {
+  if (action.payload.customAction) {
     customActionRefresh(action.payload, state.gridChecks);
   } else {
     APIRefresh(action.payload.entity, state.gridChecks);
   }
-  return state;
+  return {...state};
 }
