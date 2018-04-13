@@ -46,10 +46,11 @@ export function customActionDelete(_data, _resources) {
   throw new Error('customURLDelete not implemented yet');
 }
 
-export function onDelete(data, resources) {
+export function onDelete(state, action) {
   if (data.customAction) {
-    customActionDelete(data, resources);
+    customActionDelete(action.payload, state.gridChecks);
   } else {
-    APIDelete(data.entity, resources);
+    APIDelete(action.payload.entity, state.gridChecks);
   }
+  return {...state};
 }

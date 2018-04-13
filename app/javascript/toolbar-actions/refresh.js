@@ -26,10 +26,11 @@ export function APIRefresh(entity, resources) {
   });
 }
 
-export function onRefresh(payload, resources) {
+export function onRefresh(state, action) {
   if (payload.customAction) {
-    customActionRefresh(payload, resources);
+    customActionRefresh(action.payload, state.gridChecks);
   } else {
-    APIRefresh(payload.entity, resources);
+    APIRefresh(action.payload.entity, state.gridChecks);
   }
+  return state;
 }
