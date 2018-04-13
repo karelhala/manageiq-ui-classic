@@ -46,7 +46,7 @@ class ApplicationHelper::Toolbar::NetworkRouterCenter < ApplicationHelper::Toolb
             :url_parms    => 'main_div',
             :send_checked => true,
             :confirm      => N_('Warning: This Router and ALL of its components will be removed!'),
-            :data         => {'function'      => 'sendDataWithRx',
+            :data         => {'function'      => 'ManageIQ.redux.store.dispatch',
                               'function-data' => '{"type": "delete", "payload": {"entity": "network_routers"}}'},
           )
         ]

@@ -14,7 +14,7 @@ class ApplicationHelper::Toolbar::PhysicalServersCenter < ApplicationHelper::Too
             N_('Refresh relationships and power states for all items related to the selected Physical Servers'),
             N_('Refresh Relationships and Power States'),
             :image   => "refresh",
-            :data    => {'function'      => 'sendDataWithRx',
+            :data    => {'function'      => 'ManageIQ.redux.store.dispatch',
                          'function-data' => '{"type": "refresh", "payload": {"entity": "physical_servers"}}'},
             :confirm => N_("Refresh relationships and power states for all items related to the selected Physical Servers?"),
             :enabled => false,
