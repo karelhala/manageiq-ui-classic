@@ -11,6 +11,8 @@ import 'proxy-polyfill';
 import { mount } from '../react/mounter';
 import componentRegistry from '../react/componentRegistry';
 
+import bootstrapReducers from '../reducers';
+
 import * as newRegistry from '../miq-component/registry';
 import reactBlueprint from '../miq-component/react-blueprint';
 import * as helpers from '../miq-component/helpers';
@@ -27,6 +29,8 @@ ManageIQ.component = {
   reactBlueprint,
   ...helpers,
 };
+
+bootstrapReducers();
 
 ManageIQ.angular.rxSubject = rxSubject;
 window.sendDataWithRx = sendDataWithRx;
