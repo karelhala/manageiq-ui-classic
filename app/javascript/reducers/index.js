@@ -7,8 +7,8 @@ const reducersHash = {
 }
 
 export default function bootstrapReducers() {
-  addReducder(
-    state, action => applyReducerHash(reducersHash, state, action)
+  addReducer(
+    (state, action) => applyReducerHash(reducersHash, state, action)
   );
   // Feel free to add your own addReducer function
 }

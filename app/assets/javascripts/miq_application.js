@@ -380,7 +380,12 @@ function miqUpdateAllCheckboxes(button_div) {
 function miqUpdateButtons(obj, button_div) {
   var count = 0;
 
-  sendDataWithRx({rowSelect: obj});
+  window.ManageIQ.redux.store.dispatch({
+    type: 'ui-classic_gridCheckChange',
+    payload: {
+      rowSelect: obj,
+    },
+  });
 
   if (typeof obj.id != 'undefined') {
     $("input[id^='check_']").each(function() {

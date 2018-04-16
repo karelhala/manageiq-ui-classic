@@ -20,6 +20,7 @@ ManageIQ.angular.app = angular.module('ManageIQ', [
   'ui.bootstrap',
   'ui.codemirror',
   'ui.select',
+  'ManageIQ.report_data'
 ]);
 miqHttpInject(ManageIQ.angular.app);
 

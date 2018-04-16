@@ -23,7 +23,12 @@
           return cb.value;
         });
 
-        sendDataWithRx({rowSelect: e.delegateTarget});
+        window.ManageIQ.redux.store.dispatch({
+          type: 'ui-classic_gridCheckChange',
+          payload: {
+            rowSelect: e.delegateTarget,
+          },
+        });
         ManageIQ.gridChecks = checked;
         miqSetButtons(checked.length, 'center_tb');
 

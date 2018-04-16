@@ -8,6 +8,30 @@
   var USE_TREE_ID = ['automation_manager'];
   var DEFAULT_VIEW = 'grid';
   var TOOLBAR_CLICK_FINISH = 'TOOLBAR_CLICK_FINISH';
+  var GRID_CHECK_CHANGE = 'ui-classic_gridCheckChange';
+  var GRID_CHECK_RESET = 'ui-classic_gridCheckReset';
+
+  function reduxActions(dispatch) {
+    return {
+      gridCheckChanged: function(rowSelect) {
+        dispatch({
+          type: GRID_CHECK_CHANGE,
+          payload: {
+            rowSelect: rowSelect
+          },
+        });
+      },
+  
+      gridCheckReset: function(global) {
+        dispatch({
+          type: GRID_CHECK_RESET,
+          payload: {
+            global: global
+          },
+        });
+      }
+    }
+  };
 
   function isAllowedParent(initObject) {
     return TREES_WITHOUT_PARENT.indexOf(ManageIQ.controller) === -1 &&
@@ -124,8 +148,11 @@
                                       $scope,
                                       $document,
                                       $timeout,
-                                      $window) {
+                                      $window,
+                                      $ngRedux) {
     var vm = this;
+    var unsubscribe = $ngRedux.connect(vm.mapStateToThis, reduxActions)(vm);
+    $scope.$on('$destroy', unsubscribe);
     vm.settings = {};
     vm.MiQDataTableService = MiQDataTableService;
     vm.MiQEndpointsService = MiQEndpointsService;
@@ -254,7 +281,7 @@
       if (selectedItem) {
         selectedItem.checked = isSelected;
         selectedItem.selected = isSelected;
-        this.$window.sendDataWithRx({rowSelect: selectedItem});
+        this.gridCheckChanged(selectedItem);
         if (isSelected) {
           ManageIQ.gridChecks.push(item.long_id);
         } else {
@@ -281,7 +308,7 @@
     this.gtlType = initObject.gtlType || DEFAULT_VIEW;
     this.settings.isLoading = true;
     ManageIQ.gridChecks = [];
-    this.$window.sendDataWithRx({setCount: 0});
+    this.gridCheckReset(false);
   };
 
   /**
@@ -328,7 +355,7 @@
         if (! this.gtlData.rows.length) {
           this.setExtraClasses();
         }
-
+        this.selectItems();
         this.$timeout(function() {
           this.$window.ManageIQ.gtl.loading = false;
           this.$window.ManageIQ.gtl.isFirst = this.settings.current === 1;
@@ -337,6 +364,18 @@
         return data;
       }.bind(this));
   };
+
+  ReportDataController.prototype.selectItems = function() {
+    if (this.globalGridChecks) {
+      _.forEach(this.gtlData.rows, function(oneRow) {
+        if (_.contains(this.globalGridChecks, oneRow.id)) {
+          oneRow.checked = true;
+          oneRow.selected = true;
+          this.gridCheckChanged(oneRow);
+        }
+      }.bind(this));
+    }
+  }
 
   /**
   * Public method for setting default values of settings object.
@@ -374,6 +413,8 @@
       } else if (viewType && viewType === 'list') {
         angular.element(mainContent).addClass('miq-list-content');
         angular.element(this.$document.querySelector('#paging_div .miq-pagination')).css('display', 'block');
+      } else {
+        this.gridCheckReset(true)
       }
     }
   };
@@ -391,6 +432,13 @@
       miqTreeExpandRecursive(treeId, itemId);
     }
   };
+
+  ReportDataController.prototype.mapStateToThis = function(state) {
+    return {
+      gridChecks: state.gridChecks,
+      globalGridChecks: state.globalGridChecks,
+    }
+  }
 
   ReportDataController.prototype.movePagination = function() {
     this.$timeout(function() {
@@ -508,6 +556,7 @@
     '$document',
     '$timeout',
     '$window',
+    '$ngRedux',
   ];
   window.miqHttpInject(angular.module('ManageIQ.report_data'))
     .controller(CONTROLLER_NAME, ReportDataController);
